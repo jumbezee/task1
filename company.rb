@@ -1,7 +1,6 @@
 require 'active_record'
 require 'pg'
 require 'minitest/autorun'
-require './user_profile'
 
 
 
@@ -13,13 +12,15 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Company < ActiveRecord::Base
-  com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
-    
-    com.exec "DROP TABLE IF EXISTS Companies"
-    com.exec "CREATE TABLE Companies(name VARCHAR(80), 
-        city VARCHAR(80), country VARCHAR(80) )"
-end
 
+    com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
+    begin
+    com.exec "DROP TABLE IF EXISTS Companies"
+    com.exec "CREATE TABLE Companies(name VARCHAR(80) primary key, 
+        city VARCHAR(80), country VARCHAR(80) )"
+    end
+    load 'userprofile.rb'
+end
 
 class CreateCompanyTable < ActiveRecord::Migration
   
@@ -30,32 +31,11 @@ class CreateCompanyTable < ActiveRecord::Migration
       t.string :country
     end
   end
-  
-
-    
-
-    1000.times do |i|
-      i += 1
-      name = "company_" + i.to_s
-      city = "city_" + i.to_s
-      country = "country_" + i.to_s
-    Company.create!(name: name, city: city, country: country)
-      100.times do |i|
-        first = "first" + i.to_s
-        UserProfile.create!()
-      end
-
-    end
-
- 
-
-
-
-
-
+  load 'add_to_db_manually.rb'
 end
 
 
-CreateCompanyTable.migrate(:change) unless ActiveRecord::Base.connection.table_exists? :companies
 
-CreateUserProfileTable.migrate(:changeUP) unless ActiveRecord::Base.connection.table_exists? :users_profiles
+
+CreateCompanyTable.migrate(:change) unless ActiveRecord::Base.connection.table_exists? :company
+CreateProfileTable.migrate(:changeUP) unless ActiveRecord::Base.connection.table_exists? :profiles
