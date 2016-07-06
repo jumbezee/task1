@@ -15,11 +15,13 @@ class Company < ActiveRecord::Base
 
     com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
     begin
-    com.exec "DROP TABLE IF EXISTS Companies"
+    com.exec "DROP TABLE IF EXISTS Companies CASCADE"
     com.exec "CREATE TABLE Companies(name VARCHAR(80) primary key, 
         city VARCHAR(80), country VARCHAR(80) )"
     end
+
     load 'userprofile.rb'
+
 end
 
 class CreateCompanyTable < ActiveRecord::Migration
@@ -39,3 +41,4 @@ end
 
 CreateCompanyTable.migrate(:change) unless ActiveRecord::Base.connection.table_exists? :company
 CreateProfileTable.migrate(:changeUP) unless ActiveRecord::Base.connection.table_exists? :profiles
+CreateEmployeeTable.migrate(:changeE) unless ActiveRecord::Base.connection.table_exists? :employees

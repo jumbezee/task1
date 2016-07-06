@@ -1,14 +1,14 @@
 require 'active_record'
 require 'pg'
 require 'minitest/autorun'
-require './employee'
+
 
 class Profile < ActiveRecord::Base
-    
+    load 'employee.rb'
     user = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
-    user.exec "DROP TABLE IF EXISTS Profiles"
+    user.exec "DROP TABLE IF EXISTS Profiles CASCADE"
     user.exec "CREATE TABLE Profiles(name varchar(80) REFERENCES companies, first_name VARCHAR(80), 
-        last_name VARCHAR(80), gender VARCHAR(8))INHERITS (employes)"
+        last_name VARCHAR(80), gender VARCHAR(8))INHERITS (employees)"
 end
 
 class CreateProfileTable < ActiveRecord::Migration
@@ -22,3 +22,4 @@ class CreateProfileTable < ActiveRecord::Migration
     end
   end
 end
+
