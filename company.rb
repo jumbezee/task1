@@ -12,15 +12,20 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Company < ActiveRecord::Base
-
+    has_many :profiles
     com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
     begin
     com.exec "DROP TABLE IF EXISTS Companies CASCADE"
-    com.exec "CREATE TABLE Companies(name VARCHAR(80) primary key, 
-        city VARCHAR(80), country VARCHAR(80) )"
+    com.exec "CREATE TABLE Companies(id serial NOT NULL,
+    name VARCHAR(80), 
+    city VARCHAR(80), 
+    country VARCHAR(80), 
+
+    CONSTRAINT pk_companies_id PRIMARY KEY ( id ),
+    CONSTRAINT uk_companies_name UNIQUE (name) )"
     end
 
-    load 'userprofile.rb'
+   load 'userprofile.rb'
 
 end
 
@@ -33,12 +38,12 @@ class CreateCompanyTable < ActiveRecord::Migration
       t.string :country
     end
   end
-  load 'add_to_db_manually.rb'
+  load 'add_to_db_manually.rb' # add_to_db.rb - automatically , add_to_db_manually.rb - manually
 end
 
 
 
 
-CreateCompanyTable.migrate(:change) unless ActiveRecord::Base.connection.table_exists? :company
+CreateCompanyTable.migrate(:change) unless ActiveRecord::Base.connection.table_exists? :companies
 CreateProfileTable.migrate(:changeUP) unless ActiveRecord::Base.connection.table_exists? :profiles
 CreateEmployeeTable.migrate(:changeE) unless ActiveRecord::Base.connection.table_exists? :employees

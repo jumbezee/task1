@@ -1,3 +1,5 @@
+id = 1
+# idp = 1
 loop do
       print "Введите название компании: "
       name = gets.strip
@@ -41,15 +43,18 @@ loop do
                         end
                     end
 
-             # puts "this blok is OK"         
-            Profile.create!(email: email, name: name, first_name: first, last_name: last, gender: @gender)
-            Employee.create!(email: email)
+             # puts "this blok is OK"  
+            # Employee.create!(profiles_id: idp, email: email)    
+            # idp += 1
+            Profile.create!(companies_id: id,email: email, first_name: first, last_name: last, gender: @gender)
+            
             print "Хотите добавить сотрудников?(Y/N): "
             fll = gets.strip.capitalize
 
             if fll == "N"
               break
             end
+
         end 
       end
       print "Хотите добавить компанию?(Y/N)"
@@ -58,5 +63,5 @@ loop do
       if flll == "N"
         exit
       end
-
+id += 1
 end
