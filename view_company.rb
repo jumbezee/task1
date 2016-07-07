@@ -4,13 +4,14 @@ require 'minitest/autorun'
 
 com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
 
-com.exec "CREATE MATERIALIZED VIEW mvw_proofiles AS
-SELECT profiles.id, companies.name || ' ' || companies.city || ' ' || companies.country AS companies_data, profiles.first_name
-FROM profiles
-INNER JOIN companies ON companies.id = profiles.companies_id;"
+# com.exec "ALTER table profiles add column locale varchar(80)"
+com.exec "COPY companies(country) TO '/Users/nikolajkuzmenko/ProjectRoR/task1/file.txt' "
+          
 
-com.exec "EXPLAIN ANALYZE SELECT * FROM mvw_proofiles;"
 
+puts "======================"
+
+puts "======================"
 
 # EXPLAIN ANALYZE SELECT * FROM mvw_proofiles WHERE companies_data = 'companies_3';
 
