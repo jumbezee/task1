@@ -61,7 +61,9 @@ loop do
       flll = gets.strip.capitalize
 
       if flll == "N"
+        load 'add_column_locale.rb'
         exit
+
       end
 id += 1
 end
