@@ -39,7 +39,7 @@ class CreateCompanyTable < ActiveRecord::Migration
       t.string :country
     end
   end
-  load 'add_to_db_manually.rb' # add_to_db.rb - automatically , add_to_db_manually.rb - manually
+  load 'add_to_db.rb' # add_to_db.rb - automatically , add_to_db_manually.rb - manually
   load 'add_column_locale.rb'
 end
 
