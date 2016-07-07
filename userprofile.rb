@@ -18,7 +18,7 @@ class Profile < ActiveRecord::Base
                 CONSTRAINT fk_profiles_companies_id FOREIGN KEY (companies_id) REFERENCES companies (id),
                 CONSTRAINT uk_profiles_name UNIQUE ( companies_id, first_name, last_name ) 
                 ) INHERITS (employees)"
-    load 'add_column_locale.rb'
+    # load 'add_column_locale.rb'
 end
 
 class CreateProfileTable < ActiveRecord::Migration
