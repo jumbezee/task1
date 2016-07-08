@@ -26,6 +26,7 @@ class Company < ActiveRecord::Base
     end
 
    load 'userprofile.rb'
+   load 'product.rb'
 
 
 end

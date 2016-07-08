@@ -34,10 +34,13 @@ com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
 
 1000.times do |j|   
 j += 1
-    10.times do |i|
+    100.times do |i|
               i += 1
               first = "first_name_" + i.to_s
               last = "last_name_" + i.to_s
+              title = "title_" + i.to_s
+              description = "description_" + i.to_s
+              path = "url/blabla"
               g = rand(1..2)
                 case g
                   when 1
@@ -46,6 +49,7 @@ j += 1
                     gender = 'femail'
                 end 
               Profile.create!(companies_id: j, first_name: first, last_name: last, gender: gender)
+              Product.create!(companies_id: j, title: title, path_to_image: path, description: description)
     end   
 end
 
