@@ -29,7 +29,7 @@ class AddColumn
     @com.exec "UPDATE profiles 
     SET locale = ( SELECT LEFT (country, 2) 
     FROM companies 
-    WHERE companies.id = profiles.companies_id 
+    WHERE companies.id = profiles.company_id 
     ORDER BY profiles.id)"
   end
 end

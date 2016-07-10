@@ -12,7 +12,8 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Company < ActiveRecord::Base
-    has_many :profiles
+    # has_many :profiles
+    # has_many :products
     com = PG.connect :dbname => 'task', :user => 'nikolajkuzmenko'
     begin
     com.exec "DROP TABLE IF EXISTS Companies CASCADE"
@@ -21,12 +22,13 @@ class Company < ActiveRecord::Base
     city VARCHAR(80), 
     country VARCHAR(80), 
 
-    CONSTRAINT pk_companies_id PRIMARY KEY ( id ),
+    
+    CONSTRAINT pk_companies PRIMARY KEY ( id ),
     CONSTRAINT uk_companies_name UNIQUE (name) )"
     end
 
-   load 'userprofile.rb'
-   load 'product.rb'
+    load 'userprofile.rb'
+    load 'product.rb'
 
 
 end
@@ -44,9 +46,3 @@ class CreateCompanyTable < ActiveRecord::Migration
   load 'add_column_locale.rb'
 end
 
-
-
-
-CreateCompanyTable.migrate(:change) unless ActiveRecord::Base.connection.table_exists? :companies
-CreateProfileTable.migrate(:changeUP) unless ActiveRecord::Base.connection.table_exists? :profiles
-CreateEmployeeTable.migrate(:changeE) unless ActiveRecord::Base.connection.table_exists? :employees

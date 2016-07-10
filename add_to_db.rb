@@ -41,6 +41,7 @@ j += 1
               title = "title_" + i.to_s
               description = "description_" + i.to_s
               path = "url/blabla"
+              price = 1000
               g = rand(1..2)
                 case g
                   when 1
@@ -48,8 +49,9 @@ j += 1
                   when 2
                     gender = 'femail'
                 end 
-              Profile.create!(companies_id: j, first_name: first, last_name: last, gender: gender)
-              Product.create!(companies_id: j, title: title, path_to_image: path, description: description)
+              Product.create!(company_id: j, title: title, path_to_image: path, description: description, price: price)
+              Profile.create!(company_id: j, first_name: first, last_name: last, gender: gender)
+              
     end   
 end
 
